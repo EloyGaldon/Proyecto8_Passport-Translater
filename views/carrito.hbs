@@ -1,0 +1,55 @@
+<div class="container fluid">
+    <div class="row carrito">
+        <div class="col-9 detalleCarro">
+
+            {{#if carrito.length}}
+                <div class="d-flex justify-content-between flex-row">
+                    <div class="p-2"><h3><strong>Tu Carrito</strong></h3></div>
+                    <div class="p-2"><button type="button" class="btn btn-danger" onclick='window.location.assign("/compra/deleteAll")'><span class="fa fa-trash"></span> Vaciar carrito</button></div>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each carrito}}
+                        <tr class="align-items-center">
+                            <td><img src="{{imagen}}" style="width: 5em" alt="{{nomb_producto}}"/></td>
+                            <td>{{nomb_producto}}</td>
+                            <td>{{fecha}}</td>
+                            <td>{{descripcion}}</td>
+                            <td>{{precio}}</td>
+                            <td><button type="button" class="btn btn-primary btn-sm" onclick='window.location.assign("/compra/sumarCant/{{id_producto}}")'><i class="fas fa-plus"></i></button><span class="btn btn-outline-primary btn-sm"> {{cantidad}} </span><button type="button" class="btn btn-primary btn-sm" onclick='window.location.assign("/compra/restCant/{{id_producto}}")'><i class="fas fa-minus"></i></button></td>
+                            <td><button type="button" class="btn btn-danger" onclick='window.location.assign("/compra/deleteProduc/{{id_producto}}")'><i class="fas fa-times-circle"></i></button></td>
+
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                <div class="d-flex justify-content-center mt-3">
+                    <div>
+                    <h3>Tu carrito está vacio</h3>
+                    <button type="button" class="btn btn-outline-primary btn-lg mt-5" onclick='window.location.assign("/#sectionDestinos")'><i class="fas fa-shopping-bag fa-2x"></i> Ir a comprar </button>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+        <div class="col-3 pt-5 resumenCarro">
+            <h5><strong>Resumen del pedido</strong></h5>
+            <hr>
+            <p><strong> Cantidad de porductos:</strong> {{cantidadTotal}} </p>
+            <p><strong> Total a pagar :</strong> {{precioTotal}} €</p>
+            <hr>
+            <button type="button" class="btn btn-outline-success"> Comprar </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,175 @@
+<section id="sectionInicio">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 offset-md-4 viaja">
+                <h1><b>Viaja !</b></h1>
+                <h3>Descubre lugares maravillosos</h3>
+                <a href="#sectionDestinos" class="btn btn-warning btn-lg">Ver destinos</a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="sectionDestinos">
+{{#if destinos.length}}
+
+    <section id="desktop">
+        <div class="container">
+            <div class="row mb-3 mt-3">
+                {{#each destinos}}
+                <div class="col-lg-4 col-md-4 mb-3">
+                    <div class="hovereffect">
+                        <img class="img-fluid" src="{{imagen}}" alt="{{nombre_viaje}}">
+                        <div class="overlay">
+                            <h2>{{nombre_viaje}} desde <strong>{{precio}} €</strong></h2>
+                            <button type="button" class="btn btn-outline-light mt-5" data-toggle="modal" data-target="#viajeModal'{{id}}'">
+                                Más detalles del viaje
+                            </button>
+                            <br>
+                            <button type="button" class="btn btn-outline-warning mt-4" onclick='window.location.assign("/compra/comprar/{{id}}")'>Reservar</button>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Modal destino -->
+                    <div class="modal fade" id="viajeModal'{{id}}'" tabindex="-1" role="dialog" aria-labelledby="viajeModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header cabFotMod">
+                                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-suitcase"></i> Viaje a {{nombre_viaje}}</h5>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal" aria-label="Close">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="d-flex flex-row">
+                                        <div class="p-2">
+                                            <div class="card cardModal" style="width: 17rem;">
+                                                <img class="card-img-top" src="{{imagen}}" alt="{{nombre_viaje}}">
+                                                <div class="card-body">
+                                                    <p class="card-text"><strong>Descripcion:</strong><br>{{descripcion}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-2">
+                                            <p><strong>Fecha de salida:</strong><br>{{fechas}}</p>
+                                            <p><strong>Precio:</strong><br>{{precio}} €</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer cabFotMod">
+                                    <button type="button" class="btn btn-warning" onclick='window.location.assign("/compra/comprar/{{id}}")'>Reservar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fin modal destino -->
+
+
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+{{/if}}
+
+
+{{#if destinos.length}}
+<section id="mobile">
+    <div class="container-fluid">
+        <div class="row mb-3 mt-3">
+            <div class="col" id="test">
+                <div id="carrusel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-inner">
+                            {{#each destinos}}
+                                <div class="carousel-item {{#if @first}}active{{/if}}">
+                                    <img class="d-block w-100" src="{{imagen}}" alt="{{nombre_viaje}}">
+                                    <div class="carousel-caption">
+                                        <h3 class="display-4">Save 90$</h3>
+                                        <p class="lead">
+                                            <a class="btn btn-primary btn-lg" href="#" role="button">Buy now</a>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            {{/each}}
+                        </div>
+
+                    </div>
+                    <a id="control_dch" class="carousel-control-prev" href="#carrusel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a id="control_izq" class="carousel-control-next" href="#carrusel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{/if}}
+
+</section>
+
+<section>
+    <div class="container-fluid" id="somos">
+        <div class ="row">
+            <div class="col-10 col-sm-4 offset-1" id="quienes_somos">
+                <h1>Quienes somos</h1>
+                <hr>
+                <p><i>GeeksHubs Travels es una agencia de viajes online creada e 2009 por un equipo de profecionales y entusiastas que deciden hacer de su pasión por conocer el mundo para 2018 seremos la agencia de viajes preferida por nuestros clientes por seguridad y conpromiso de nuestro personal.</i></p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section>
+    <div class="wrapper-contacto" id="Estamos">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-8 offset-md-2 mapa">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1539.7225968345203!2d-0.3570209322480286!3d39.48186084048991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd604898947abad3%3A0x5aae0e0b7fa0358a!2sGeeksHubs+Space+Valencia!5e0!3m2!1ses-419!2ses!4v1521586091457" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="col-lg-4 offset-lg-1 col-md-8 offset-md-2 formulario">
+                <p>E: inquiry@artiotravel.com</p>
+
+                <p>P: 0264 123 4567</p>
+
+                <p>Llámanos o visítanos con tus preguntas, estamos dispuestos y disponibles a responder
+                    cualquier pregunta en 24 horas durante días laborales.</p>
+                <hr class="hr-contact"/>
+                <form class="form-contact">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" id="inputName" placeholder="Nombre">
+                        </div>
+                        <div class="col">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" id="inputPhone" placeholder="Telefono">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="inputCountry" placeholder="Pais">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <textarea class="form-control" id="inputTextarea" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-lg submit">Enviar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</section>
