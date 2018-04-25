@@ -1,4 +1,5 @@
 var destinationsModel = require('../models/destinationsModel');
+var destSeqModel=require('../models/destinoSeqModel');
 var destinationsController = {};
 const paginate = require('express-paginate');
 
@@ -6,7 +7,7 @@ destinationsController.getAllDestinationsPag=(req, res, next)=> {
     let page=(parseInt(req.query.page) || 1) -1;
     let limit = 5;
     let offset = page * limit ;
-    destinationsModel.getAllDestinationsPag(offset, limit, (error, destinos)=>{
+    destSeqModel.getAllDestinationsPag(offset, limit, (error, destinos)=>{
         if(error){
             return res.status(500).send(error);
         }else{
@@ -15,7 +16,7 @@ destinationsController.getAllDestinationsPag=(req, res, next)=> {
             }else{
                 if(req.session.isAdmin){
                     const currentPage = offset ===0 ? 1:(offset/limit)+1;
-                    const totalCount = destinos.count[0].total;
+                    const totalCount = destinos.count;
                     const pageCount = Math.ceil(totalCount /limit);
                     const pagination = paginate.getArrayPages(req)(10,pageCount, currentPage);
 
@@ -72,7 +73,7 @@ destinationsController.getAllDestinations= (req, res, next)=> {
 };
 destinationsController.getDestinations= (req, res, next)=> {
    // console.log("Estoy entrando");
-    destinationsModel.getDestinations((err,destinos)=>{
+    destSeqModel.getDestinations((err,destinos)=>{
         if(err) {
             res.status(500).json(err);
         }else{
@@ -107,7 +108,7 @@ destinationsController.createDestination = (req, res, next)=>{
         activo: req.body.activo
     }
 
-    destinationsModel.createDestination(destino,(err,result)=>{
+    destSeqModel.createDestination(destino,(err,result)=>{
         if(err) {
             res.status(500).json(err);
         }else{
@@ -126,7 +127,7 @@ destinationsController.createDestination = (req, res, next)=>{
 };
 
 destinationsController.deleteDestination = (req, res, next) =>{
-    destinationsModel.deleteDestination(req.params.id, (err, result)=>{
+    destSeqModel.deleteDestination(req.params.id, (err, result)=>{
         if(err){
             res.status(500).json(err);
         }else{
@@ -145,7 +146,7 @@ destinationsController.deleteDestination = (req, res, next) =>{
 };
 
 destinationsController.activaDestination = (req, res, next) => {
-    destinationsModel.activaDestination(req.params.id, (err, result) => {
+    destSeqModel.activaDestination(req.params.id, (err, result) => {
         if (err) {
             res.status(500).json(err);
         } else {
