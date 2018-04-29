@@ -17,11 +17,11 @@
                 <a class="nav-link" href="/#Estamos">Dónde estamos <span class="sr-only">(current)</span></a>
             </li>
             <div class="logReg2">
-                {{#if isLogged}}
-                    {{#if isAdmin}}
+                {{#if user}}
+                    {{#if user.isAdmin}}
                         <div class="btn-group dropleft">
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-user-circle"></i> {{user}}
+                                <i class="fas fa-user-circle"></i> {{user.nombre}}
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="/admins/adminpanel">Administrar Viajes</a>
@@ -32,7 +32,7 @@
                     {{else}}
                         <div class="btn-group dropleft">
                             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-user-circle"></i> {{user}}
+                                <i class="fas fa-user-circle"></i> {{user.nombre}}
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="#">Mi perfil</a>
@@ -57,11 +57,11 @@
         </ul>
     </div>
     <div class="logReg">
-        {{#if isLogged}}
-            {{#if isAdmin}}
+        {{#if user}}
+            {{#if user.isAdmin}}
                 <div class="btn-group dropleft">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i> {{user}}
+                        <i class="fas fa-user-circle"></i> {{user.nombre}}
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/admins/adminpanel">Administrar Viajes</a>
@@ -72,7 +72,7 @@
             {{else}}
                 <div class="btn-group dropleft">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle"></i> {{user}}
+                        <i class="fas fa-user-circle"></i> {{user.nombre}}
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Mi perfil</a>

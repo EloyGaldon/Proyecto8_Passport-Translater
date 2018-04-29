@@ -72,13 +72,14 @@ userController.postSignUp = function (req, res, next){
 
 userController.signIn = function (req, res, next) {
 
-    if(req.session.username){
+    if(req.user){
         res.redirect('/');
     }else{
         res.render('users/signin', {
             title: 'login',
             layout: 'templates/default',
             registroOk: req.flash('registroOk'),
+            errorPassport:req.flash('message'),
             errorEmail: req.flash('errorEmail'),
             errorPassword: req.flash('errorPassword'),
             errorEmail2: req.flash('errorEmail2'),
@@ -124,13 +125,14 @@ userController.postSignIn = function (req, res , next) {
 userController.logOut= function (req, res, next){
 
 
-    if(!req.session.username){
+    if(!req.user){
         res.redirect('/');
     }else{
-        req.session.destroy();
+        req.logout();
         res.redirect('/');
     }
 };
+
 userController.getAllUsersPag= function (req, res, next) {
     //console.log('entra al controlador');
     let page=(parseInt(req.query.page) || 1) -1;
@@ -141,10 +143,10 @@ userController.getAllUsersPag= function (req, res, next) {
             res.status(500).json(error);
         }
         else {
-            if (!req.session.username) {
+            if (!req.user) {
                 res.redirect('/');
             } else {
-                if (req.session.isAdmin) {
+                if (req.user.isAdmin) {
                     console.log('vuelve del modelo');
                     const currentPage = offset ===0 ? 1:(offset/limit)+1;
                     const totalCount = usuarios.count[0].total;
@@ -163,7 +165,7 @@ userController.getAllUsersPag= function (req, res, next) {
                         error: req.flash('error'),
                         isLogged: true,
                         isAdmin: true,
-                        user: req.session.username
+                        user: req.user
                     })
                 } else {
                     res.redirect('/');
@@ -181,10 +183,10 @@ userController.getAllUsers= function (req, res, next) {
             res.status(500).json(err);
         }
         else {
-            if (!req.session.username) {
+            if (!req.user) {
                 res.redirect('/');
             } else {
-                if (req.session.isAdmin) {
+                if (req.user.isAdmin) {
                     res.render('userPanel', {
                         title: 'Panel de administrador',
                         layout: '../views/templates/default',
@@ -193,7 +195,7 @@ userController.getAllUsers= function (req, res, next) {
                         error: req.flash('error'),
                         isLogged: true,
                         isAdmin: true,
-                        user: req.session.username
+                        user: req.user
                     })
                 } else {
                     res.redirect('/');
@@ -208,10 +210,10 @@ userController.activaUser = (req, res, next) => {
         if (err) {
             res.status(500).json(err);
         } else {
-            if (!req.session.username) {
+            if (!req.user) {
                 res.redirect('/');
             } else {
-                if (req.session.isAdmin) {
+                if (req.user.isAdmin) {
                     req.flash('error', 'Se ha cambiado el campo activo del usuario ' + req.params.id + '!')
                     res.redirect('/admins/userpanel');
                 } else {
@@ -226,7 +228,7 @@ userController.darPermisos = (req, res, next) => {
         if (err) {
             res.status(500).json(err);
         } else {
-            if (req.session.isAdmin) {
+            if (req.user.isAdmin) {
                 req.flash('error', 'Se ha cambiado el campo activo del usuario ' + req.params.id + '!')
                 res.redirect('/admins/userpanel');
             } else {
@@ -254,7 +256,7 @@ userController.createUser = (req, res, next)=>{
         if(err) {
             res.status(500).json(err);
         }else{
-                if(req.session.isAdmin){
+                if(req.user.isAdmin){
                     req.flash('correcto','Se ha creado el ususario correctamente!')
                     res.redirect('/admins/userpanel');
                 }else{
@@ -271,7 +273,7 @@ userController.deleteUser=(req,res,next)=>{
         if (err) {
             res.status(500).json(err);
         } else {
-            if (req.session.isAdmin) {
+            if (req.user.isAdmin) {
                 req.flash('error', 'Se ha borrado el usuario ' + req.params.id + '!')
                 res.redirect('/admins/userpanel');
             } else {

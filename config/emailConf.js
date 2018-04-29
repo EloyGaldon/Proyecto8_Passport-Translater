@@ -5,12 +5,12 @@ let email={};
 email.transporter=Nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: '',
-            pass: ''
+            user: 'pruebasegg@gmail.com',
+            pass: 'programacion1404'
         },
     },
     {
-    from:'',
+    from:'pruebasegg@gmail.com',
     headers:{
     }
 })

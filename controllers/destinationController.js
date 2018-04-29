@@ -11,10 +11,10 @@ destinationsController.getAllDestinationsPag=(req, res, next)=> {
         if(error){
             return res.status(500).send(error);
         }else{
-            if(!req.session.username){
+            if(!req.user){
                 res.redirect('/');
             }else{
-                if(req.session.isAdmin){
+                if(req.user.isAdmin){
                     const currentPage = offset ===0 ? 1:(offset/limit)+1;
                     const totalCount = destinos.count;
                     const pageCount = Math.ceil(totalCount /limit);
@@ -32,7 +32,7 @@ destinationsController.getAllDestinationsPag=(req, res, next)=> {
                         error: req.flash('error'),
                         isLogged: true,
                         isAdmin: true,
-                        user: req.session.username
+                        user: req.user
                     })
                 }else{
                     res.redirect('/');
@@ -50,10 +50,10 @@ destinationsController.getAllDestinations= (req, res, next)=> {
         if(err) {
             res.status(500).json(err);
         }else{
-            if(!req.session.username){
+            if(!req.user){
                 res.redirect('/');
             }else{
-                if(req.session.isAdmin){
+                if(req.user.isAdmin){
                     res.render('adminPanel',{
                         title: 'Panel de administrador',
                         layout: '../views/templates/default',
@@ -62,7 +62,7 @@ destinationsController.getAllDestinations= (req, res, next)=> {
                         error: req.flash('error'),
                         isLogged: true,
                         isAdmin: true,
-                        user: req.session.username
+                        user: req.user
                     })
                 }else{
                     res.redirect('/');
@@ -77,10 +77,10 @@ destinationsController.getDestinations= (req, res, next)=> {
         if(err) {
             res.status(500).json(err);
         }else{
-            if(!req.session.username){
+            if(!req.user){
                 res.redirect('/');
             }else{
-                if(req.session.isAdmin){
+                if(req.user.isAdmin){
                     res.render('adminPanel',{
                         title: 'Panel de administrador',
                         layout: '../views/templates/default',
@@ -89,7 +89,7 @@ destinationsController.getDestinations= (req, res, next)=> {
                         error: req.flash('error'),
                         isLogged: true,
                         isAdmin: true,
-                        user: req.session.username
+                        user: req.user
                     })
                 }else{
                     res.redirect('/');
@@ -112,10 +112,10 @@ destinationsController.createDestination = (req, res, next)=>{
         if(err) {
             res.status(500).json(err);
         }else{
-            if(!req.session.username){
+            if(!req.user){
                 res.redirect('/');
             }else{
-                if(req.session.isAdmin){
+                if(req.user.isAdmin){
                     req.flash('correcto','Se ha creado el viaje correctamente!')
                     res.redirect('/admins/adminpanel');
                 }else{
@@ -131,10 +131,10 @@ destinationsController.deleteDestination = (req, res, next) =>{
         if(err){
             res.status(500).json(err);
         }else{
-            if(!req.session.username){
+            if(!req.user){
                 res.redirect('/');
             }else{
-                if(req.session.isAdmin){
+                if(req.user.isAdmin){
                     req.flash('error','Se ha borrado el registro '+req.params.id+'!')
                     res.redirect('/admins/adminpanel');
                 }else{
@@ -150,10 +150,10 @@ destinationsController.activaDestination = (req, res, next) => {
         if (err) {
             res.status(500).json(err);
         } else {
-            if (!req.session.username) {
+            if (!req.user) {
                 res.redirect('/');
             } else {
-                if (req.session.isAdmin) {
+                if (req.user.isAdmin) {
                     req.flash('error', 'Se ha cambiado el campo activo del usuario ' + req.params.id + '!')
                     res.redirect('/admins/adminpanel');
                 } else {

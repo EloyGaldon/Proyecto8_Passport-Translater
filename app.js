@@ -7,11 +7,14 @@ var session = require('express-session');
 var paginate = require('express-paginate');
 //Carga de libreria session-flash
 var flash = require('connect-flash');
+//Carga de libreria de passport
+const Passport = require('passport');
 var winston = require('./config/winston');
 var indexRouter = require('./routes/routes');
 var admins=require('./routes/admins');
 var users = require('./routes/users');
 var compra= require('./routes/compra');
+var login=require('./routes/login');
 
 var hbs = require('hbs');
 var hbsUtils = require('hbs-utils')(hbs);
@@ -44,6 +47,13 @@ app.use(session({
 
 app.use(flash());
 
+// conf passport
+app.use(Passport.initialize());
+app.use(Passport.session());
+app.use((req,res,next)=>{
+    res.locals.user= req.user;
+    next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +63,7 @@ app.use('/mailer',mailer);
 app.use('/compra',compra);
 app.use('/admins',admins); //de la transparencia
 app.use('/users', users);
+app.use('/login',login);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

@@ -56,47 +56,22 @@ router.get('/', function(req, res, next) {
     destinationsModel.getDestinations((err,destinos)=>{
         if(err) {
             res.status(500).json(err);
-        }else{
-            if(req.session.compra){
-                var cantidad_productos=0;
-                var precio_total=0;
-                req.session.compra.forEach((item)=>{
-                    cantidad_productos+=item.cantidad;
-                    precio_total+=item.precio;
+        }else {
+            if (req.session.compra) {
+                var cantidad_productos = 0;
+                var precio_total = 0;
+                req.session.compra.forEach((item) => {
+                    cantidad_productos += item.cantidad;
+                    precio_total += item.precio;
                 });
             }
-
-
-            if(!req.session.username){
-                res.render('home',{
-                    title: 'Home',
-                    layout: '../views/templates/default',
-                    cantidadTotal:cantidad_productos,
-                    destinos: destinos
-                });
-            }else{
-                if(req.session.isAdmin){
-                    res.render('home',{
-                        title: 'Home',
-                        layout: '../views/templates/default',
-                        cantidadTotal:cantidad_productos,
-                        destinos: destinos,
-                        isLogged: true,
-                        isAdmin: true,
-                        user: req.session.username
-                    });
-                }else{
-                    res.render('home',{
-                        title: 'Home',
-                        layout: '../views/templates/default',
-                        cantidadTotal:cantidad_productos,
-                        destinos: destinos,
-                        isLogged: true,
-                        user: req.session.username
-                    });
-                }
-            }
-
+            res.render('home', {
+                title: 'Home',
+                layout: '../views/templates/default',
+                cantidadTotal: cantidad_productos,
+                destinos: destinos,
+                user:req.user
+            })
         }
     })
 });

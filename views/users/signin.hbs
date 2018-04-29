@@ -5,7 +5,12 @@
                 <div class="card">
                     <div class="card-body">
                         <!-- form -->
-                        <form id="formLogin" action="/users/login" method="post">
+                        <form id="formLogin" action="/login/loginuser" method="post">
+                            <!-- Mensajes desde PassportLogin-->
+                            {{#if failureFlash}}
+                                <div class="alert alert-warning">{{message}}</div>
+                            {{/if}}
+                            <!-- Mensajes desde UserModel-->
                             {{#if registroOk}}
                                 <div class="alert alert-success">{{registroOk}}</div>
                             {{/if}}

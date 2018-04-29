@@ -25,6 +25,7 @@ Users.signUp = (usuario,cb)=>{
     })
 };
 
+
 Users.login = (usuario,cb)=>{
     let comprobacion = [1,2,3,4];
     if (!conn) return cb("No se ha podido crear la conexion")
