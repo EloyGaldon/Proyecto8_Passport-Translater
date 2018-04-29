@@ -41,9 +41,9 @@ PASSPORT.use(new LOCALSTRATEGY({
 /* Por terminar */
 
 PASSPORT.use(new Twiterstrategy({
-    consumerKey:'xpv5rUHl5oBhDf9AMPIYbg7wG',
-    consumerSecret:"EWYlhkt0igmO3ayQxxcRZ009WJs2THhBgB4ih3A5KLNzysTL34",
-    calbackURL:"http://127.0.0.1:3000/auth/twitter/callback"
+    consumerKey:'',
+    consumerSecret:"",
+    calbackURL:""
 },
 
     User.findOrCreate({where:{twitterID:id},
